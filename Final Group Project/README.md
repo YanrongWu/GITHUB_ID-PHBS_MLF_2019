@@ -20,7 +20,7 @@ When the gap between the long-term bonds and short-term bonds shrinks, it always
 
 ## 3. Data Acquisition and Description
 ### 3.1 Raw Data
-1. We download the YTM (yield to maturity) of the US treasuries with various duration range from 1 month to 30 years,from [fred.stlouisfed.org](fred.stlouisfed.org). The data is arranged by daily data and the time span from 1962 to the present. You can see in the [Yield_newVersion.csv](https://github.com/YanrongWu/YanrongWu-PHBS_MLF_2019/blob/master/Final%20Group%20Project/data/Yield_newVersion.csv)
+1. We download the YTM (yield to maturity) of the US treasuries with various duration range from 1 month to 30 years,from [fred.stlouisfed.org](http://fred.stlouisfed.org). The data is arranged by daily data and the time span from 1962 to the present. You can see in the [Yield_newVersion.csv](https://github.com/YanrongWu/YanrongWu-PHBS_MLF_2019/blob/master/Final%20Group%20Project/data/Yield_newVersion.csv)
 
 2. Considering that only use the data of the YTM of treasuries maybe not sufficient，we collect more data contains the volatility of the stock market and the changes of the monthly economic indicators such as the rate of unemployment and core CPI from [Wind](https://www.wind.com.cn/). The raw data is stored in:
 
@@ -115,7 +115,7 @@ Comparing the three traditional model, we can see that ***by changing the scale 
 
 ## 6. Model-Upgrade Version to Cover the features of Stock Market and Short-term Economic data (Still Working Now)
 
- 
+
 **From professor‘s suggestions, further we can define a score (continuous value) for recession rather than just use binary value. For example, score can be +5, -4, -3, +3, etc and score < 0  can be recession. To realize it, we have the ideas below:**
 
 *1) As we have get the data of the performance of the stock market and real economy, we think we can build a score based on the features because the real economy can be seen as the result of the recession, it's always a little bit  behind the actual economy. At the same time, the stock market can be seen as an anticipation of the future which means it will goes down and recover earlier than the real economy. We think by combination of the two catergrioes togather, we can build an reasonable score for defining the satge of the economy.*
