@@ -1,4 +1,4 @@
-**Part 1: Recession Index**
+***Part 1: Recession Index***
 
 - *GDP-Based Recession Indicator Index* (**JHGDPBRINDX**)
 - *Dates of U.S. recessions as inferred by GDP-based recession indicator* (**JHDUSRGDPBR**)
