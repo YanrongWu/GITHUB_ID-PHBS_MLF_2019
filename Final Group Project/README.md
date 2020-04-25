@@ -153,20 +153,12 @@ The following figures are interest spread with recessions highlighted.
 ![10-5](https://github.com/YanrongWu/YanrongWu-PHBS_MLF_2019/blob/master/Final%20Group%20Project/Figures/10%20year%20yield%20minus%205.png)  
 ![5-](https://github.com/YanrongWu/YanrongWu-PHBS_MLF_2019/blob/master/Final%20Group%20Project/Figures/5%20year%20yield%20minus.png)  
 
-##### ***Part 1: Some Difference***s
+##### ****
 
-- *Moody's Seasoned Aaa Corporate Bond **Minus** Federal Funds Rate* (**AAAFFM**)
-- *Moody's Seasoned Baa Corporate Bond **Minus** Federal Funds Rate* (**BAAFFM**)
-- *3-Month Commercial Paper **Minus** Federal Funds Rate* (**CPFF**)
-- *3-Month Treasury Constant Maturity **Minus** Federal Funds Rate* (**T3MFF**)
-- *6-Month Treasury Constant Maturity **Minus** Federal Funds Rate* (**T6MFF**)
-- *1-Year Treasury Constant Maturity **Minus** Federal Funds Rate* (**T1YFF**)
-- *5-Year Treasury Constant Maturity **Minus** Federal Funds Rate* (**T5YFF**)
-- *10-Year Treasury Constant Maturity **Minus** Federal Funds Rate* (**T10YFF**)
-- *10-Year Treasury Constant Maturity **Minus** 2-Year Treasury Constant Maturity* (**T10Y2Y**)
-- *10-Year Treasury Constant Maturity **Minus** 3-Month Treasury Constant Maturity* (**T10Y3M**)
-- *3-Month Treasury Bill **Minus** Federal Funds Rate* (**TB3SMFFM**)
-- *6-Month Treasury Bill **Minus** Federal Funds Rate* (**TB6SMFFM**)
+**Part 1: Recession Index**
+
+- *GDP-Based Recession Indicator Index* (**JHGDPBRINDX**)
+- *Dates of U.S. recessions as inferred by GDP-based recession indicator* (**JHDUSRGDPBR**)
 
 ##### ***Part 2: Treasury Bond and Treasury Bill***
 
@@ -213,3 +205,18 @@ The following figures are interest spread with recessions highlighted.
 - *3-Month London Interbank Offered Rate (LIBOR), based on U.S. Dollar* **(USD3MTD156N)**
 - *6-Month London Interbank Offered Rate (LIBOR), based on U.S. Dollar* **(USD6MTD156N)**
 - *12-Month London Interbank Offered Rate (LIBOR), based on U.S. Dollar* **(USD12MD156N)**
+
+##### **Part 5: Some Differences**
+
+- *Moody's Seasoned Aaa Corporate Bond **Minus** Federal Funds Rate* (**AAAFFM**)
+- *Moody's Seasoned Baa Corporate Bond **Minus** Federal Funds Rate* (**BAAFFM**)
+- *3-Month Commercial Paper **Minus** Federal Funds Rate* (**CPFF**)
+- *3-Month Treasury Constant Maturity **Minus** Federal Funds Rate* (**T3MFF**)
+- *6-Month Treasury Constant Maturity **Minus** Federal Funds Rate* (**T6MFF**)
+- *1-Year Treasury Constant Maturity **Minus** Federal Funds Rate* (**T1YFF**)
+- *5-Year Treasury Constant Maturity **Minus** Federal Funds Rate* (**T5YFF**)
+- *10-Year Treasury Constant Maturity **Minus** Federal Funds Rate* (**T10YFF**)
+- *10-Year Treasury Constant Maturity **Minus** 2-Year Treasury Constant Maturity* (**T10Y2Y**)
+- *10-Year Treasury Constant Maturity **Minus** 3-Month Treasury Constant Maturity* (**T10Y3M**)
+- *3-Month Treasury Bill **Minus** Federal Funds Rate* (**TB3SMFFM**)
+- *6-Month Treasury Bill **Minus** Federal Funds Rate* (**TB6SMFFM**)
