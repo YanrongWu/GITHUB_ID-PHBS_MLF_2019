@@ -42,9 +42,9 @@ When the gap between the long-term bonds and short-term bonds shrinks, it always
 
   ![US_Business_Cycle](https://github.com/YanrongWu/YanrongWu-PHBS_MLF_2019/blob/master/Final%20Group%20Project/Figures/US_Business_Cycle.png)
 
-  According to the table, we can define the period between the peak and through of an cycle as recession interval. For example, the ***December 1969*** is a peak of an cycle and ***February 1970*** is the through of the same cycle. As a result, we can define the ***December 1969 to February 1970*** as an recession.
+  According to the table, we can define the period between the peak and through of an cycle as recession interval. For example, the ***December 1969*** is a peak of an cycle and ***November 1970*** is the through of the same cycle. As a result, we can define the ***December 1969 to November 1970*** as an recession.
 
-  Our process model of the fact is class all the date between an recession as 1 and 0 for others, which means that all ***y*** during the interval like ***December 1969 to February 1970*** is 1 and the others is 0
+  Our process model of the fact is class all the date between an recession as 1 and 0 for others, which means that all ***y*** during the interval like ***December 1969 to November 1970*** is 1 and the others is 0
 
 - Other Definition Recession Index 
 
@@ -90,6 +90,8 @@ The following figures are interest spread with recessions highlighted.
 
 #### 2.2.4 The Rate of Change upon Short-Term Yield and Recession
 
+according to the the article, ... ...
+
 #### 2.2.5 Only Take Treasury Yields as Components for X Side
 
 The table below illustrates the summary of the potential features we get**
@@ -103,22 +105,22 @@ The table below illustrates the summary of the potential features we get**
 •	***DGS5:*** The YTM of the 5-year US treasury 
 
 ## 3  Feature Engineering - Feature Extraction and Generalized
-### 3.1 Combination of Treasury Yield with Different Weight
+### 3.1 Combination of Different Treasury Yields with Different Weights
 
-***10M1*** means the differnce of YTM of 10-year US treasury and 1-year US treasury. ***10M3***, ***10M5***, ***5M3***, ***5M1*** have the same meaning.
+***10M1*** means the difference of YTM of 10-year US treasury and 1-year US treasury. ***10M3***, ***10M5***, ***5M3***, ***5M1*** have the same meaning.
 
 ### 3.2 Tuning Lag between Term Spread  Curve and Recession Index
 
-Considerng that our target is to predict the likelyhood of the recession accur. It's meaningless to use the synchronized features and classification. ***The calssification result in the table below in fact is delayed for six months, which means that the y of 2000/1/1 is the division of 2000/7/1 which is six month later.***
+Considering that our target is to predict the likelihood of the recession occur. It's meaningless to use the synchronized features and classification. ***The classification result in the table below in fact is delayed for six months, which means that the y of 2000/1/1 is the division of 2000/7/1 which is six month later.***
 
 ### 3.3 Feature Extraction through PCA
 
 
-## 4. Model-Simple Version Only Fcous on Interest Spread
+## 4. Experiment on ML models
 
 ### 4.1 Overview
 
-#### 4.1.1 Single X variable
+#### 4.1.1 Single Term Spread
 
 > At the first stage of our model, we want to just use the features of interest spread to predict the recession. We take the ***10M1*** and ***10M3*** as the features and the result of classification as the ***y***. ***We totally have about 170000 daily data***
 >
@@ -129,7 +131,7 @@ Considerng that our target is to predict the likelyhood of the recession accur. 
 - how long is the lag
 - which ML model to apply
 
-#### 4.1.2 Multiple X variables
+#### 4.1.2 Multiple Term Spread
 
 - additionally, apply feature extraction technology
 
@@ -155,7 +157,7 @@ Considerng that our target is to predict the likelyhood of the recession accur. 
 > For Desicion Tree model, we can see the validation accuracy is improving as the proportion of traning set ***changing from 0.1 to 0.2)***, but stable after 0.2. The optimal accuracy is around ***86%*** which is similar to LR.
 >
 
-## 5  Assessment and Analytical Interpretation
+## 5  Experiment Assessment and Results
 
 |      | Model | Pair of Yields | Weight(L/S) | accuracy | Learning Curve |
 | ---- | ----- | -------------- | ----------- | -------- | -------------- |
@@ -169,9 +171,11 @@ Considerng that our target is to predict the likelyhood of the recession accur. 
 
 *the 1st experiment case
 
+## 6  Analytical Interpretation
+
 > Comparing the three traditional model, we can see that ***by changing the scale of training set, we can only get an optimal accuracy about 86%***, We think this result is not very satisfying. However, continue to exploit the data of interest spread is not effective any more and we think more features is needed. At the same time, we think we can also do more upgrade on the designing of the model and feature so we wants to develop an new model in the following part.
 
-## 6  Conclusion
+## 7  Conclusion
 
 > - Model-Upgrade Version to Cover the features of Stock Market and Short-term Economic data (Still Working Now)
 > - *1) As we have get the data of the performance of the stock market and real economy, we think we can build a score based on the features because the real economy can be seen as the result of the recession, it's always a little bit  behind the actual economy. At the same time, the stock market can be seen as an anticipation of the future which means it will goes down and recover earlier than the real economy. We think by combination of the two categories together, we can build an reasonable score for defining the stage of the economy.*
