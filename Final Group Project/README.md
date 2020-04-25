@@ -182,8 +182,6 @@ Considering that our target is to predict the likelihood of the recession occur.
 > - 2) When we reasonably defined the algorithm of score computing, we are going to use the methods we have implemented in the simple version model. After that, we will compare the performance of the two model. In our expectation, our new model can significantly improve the accuracy on predicting
 
 
-
-
 ## Reference  
 [1] fred.stlouisfed.org:  https://fred.stlouisfed.org/  
 [2] U.S. DEPARTMENT OF THE TREASURY: https://www.treasury.gov/resource-center/data-chart-center/interest-rates/Pages/TextView.aspx?data=yieldAll  
