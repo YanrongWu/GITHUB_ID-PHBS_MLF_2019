@@ -183,7 +183,7 @@ Considering that our target is to predict the likelihood of the recession occur.
 
 
 ## Reference  
-[1] fred.stlouisfed.org:  https://fred.stlouisfed.org/  
+[1] fred.stlouisfed.org: https://fred.stlouisfed.org/  
 [2] U.S. DEPARTMENT OF THE TREASURY: https://www.treasury.gov/resource-center/data-chart-center/interest-rates/Pages/TextView.aspx?data=yieldAll  
 [3] The National Bureau of Economic Research: https://www.nber.org/cycles.html    
 [4] St Louis Federal Research Economic Database: https://fred.stlouisfed.org/series/JHDUSRGDPBR  
