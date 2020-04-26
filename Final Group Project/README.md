@@ -242,7 +242,7 @@ To analyze the above learning curve, we can found that SVM and LR models are not
 
 ## 7  Conclusion
 
-
+Negative term spread is a good predictor however the whole yield rate curve is relatively weak to generate a relation onto the dynamic recession possibility or degree. There should be more internal relationship to explore behind the signal - "inverse yield point" and the whole process of changing yield rate - "the term spread curve".
 
 
 ## Reference  
