@@ -13,7 +13,7 @@
 
 ### 1.1 Introduction
 
-![Interest rate](README.assets/Interest rate.png)
+![Interest rate](README.assets/Interest_rate.png)
 
 Economic recession is one of the most important economic phenomenon in macroeconomics. Predicting economic decline has always been a tricky but attractive topic. Due to the gaming of the market and the excessively complex elements included in the market, predicting the time point of economic decline has almost become an unsolvable problem in history. 
 
