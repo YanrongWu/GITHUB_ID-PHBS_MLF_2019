@@ -63,3 +63,7 @@
 - *10-Year Treasury Constant Maturity **Minus** 3-Month Treasury Constant Maturity* (**T10Y3M**)
 - *3-Month Treasury Bill **Minus** Federal Funds Rate* (**TB3SMFFM**)
 - *6-Month Treasury Bill **Minus** Federal Funds Rate* (**TB6SMFFM**)
+
+**Other Macroeconomic Data**
+
+MACRO_DATA.csv file is for weekly price and volatility data of DJIA (Dow Jones Industrial Average) index, monthly CPI and unemployment rate, etc. These are planned to use for constructing a index in illustrate the degree of recession.

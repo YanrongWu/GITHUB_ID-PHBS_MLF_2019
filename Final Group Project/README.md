@@ -13,107 +13,119 @@
 
 ### 1.1 Introduction
 
-![Interest rate](https://github.com/YanrongWu/YanrongWu-PHBS_MLF_2019/blob/master/Final%20Group%20Project/Figures/Interest%20rate.png)  
+![Interest rate](README.assets/Interest rate.png)
 
 Economic recession is one of the most important economic phenomenon in macroeconomics. Predicting economic decline has always been a tricky but attractive topic. Due to the gaming of the market and the excessively complex elements included in the market, predicting the time point of economic decline has almost become an unsolvable problem in history. 
 
-Referring to the professor's suggestion, our group decided to launch the project to practice the programming methods learned in the class to preliminarily explore the effect on financial recession, which is generated from the relationship between short-term market interest rates and long-term market interest rates on financial weakness. This project attempts to construct multiple indicator variables based on the interest rates of different financial products in different periods, and seeks the contribution of these indicator variables by machine learning method, moreover, for the chance to get more details of the theoretical explanation of economic recession.
+Referring to Professor's suggestion, our group decided to launch the project to practice the programming methods learned in the class to preliminarily explore the effect on financial recession, which is generated from the relationship between short-term market interest rates and long-term market interest rates on financial weakness, like the figure shown, the yield curve become abnormal in 2007 before the recession.
+
+This project attempts to construct multiple indicator variables based on the interest rates of different financial products in different periods, and seeks the contribution of these indicator variables by machine learning method, moreover, for the chance to get more details of the theoretical explanation of economic recession.
 
 ### 1.2 Project Goal
-When the gap between the long-term bonds and short-term bonds shrinks, it always indicates that the market anticipates the interest rates will fall in future as a hedge to upcoming downturn. In some extreme circumstances, this indicator can even alert the recession of the stock market. Our goal is to capture this relationship and make the model useful for recession prediction.  
+
+When the gap between the long-term bonds and short-term bonds shrinks, it always indicates that the market anticipates the interest rates will fall in future as a hedge to upcoming downturn. In some extreme circumstances, this indicator can even alert the recession of the stock market. Our goal is to capture this relationship and make the model effective upon recession prediction.  
 
 ## 2  Data Acquisition and Data Selection
+
 ### 2.1 Raw Data Acquisition
-1. We download the YTM (yield to maturity) of the US treasuries with various duration range from 1 month to 30 years,from [fred.stlouisfed.org](http://fred.stlouisfed.org). The data is arranged by daily data and the time span from 1962 to the present. You can see in the [Yield_newVersion.csv](https://github.com/YanrongWu/YanrongWu-PHBS_MLF_2019/blob/master/Final%20Group%20Project/data/Yield_newVersion.csv)
 
-2. Considering that only use the data of the YTM of treasuries maybe not sufficient，we collect more data contains the volatility of the stock market and the changes of the monthly economic indicators such as the rate of unemployment and core CPI from [Wind](https://www.wind.com.cn/). The raw data is stored in:
-
-[DJ_weekly.csv](https://github.com/YanrongWu/YanrongWu-PHBS_MLF_2019/blob/master/Final%20Group%20Project/data/DJ_weekly.csv) for weekly price and volatility data of DJIA (Dow Jones Industrial Average) index.
-
-[Economic_data.csv](https://github.com/YanrongWu/YanrongWu-PHBS_MLF_2019/blob/master/Final%20Group%20Project/data/Economic_data.csv) for monthly CPI and unemployment rate.
+1. We download the YTM (yield to maturity) of the US treasuries with various duration range from 1 month to 30 years,from [fred.stlouisfed.org](http://fred.stlouisfed.org). The data is arranged by daily data and the time span from 1962 to the present. More details about the raw data, please go to [AllRawData](https://github.com/YanrongWu/YanrongWu-PHBS_MLF_2019/tree/master/Final Group Project/Data/AllRawData) folder.
+2. Considering that only use the data of the YTM of treasuries maybe not sufficient，we collect more data contains the volatility of the stock market and the changes of the monthly economic indicators such as the rate of unemployment and core CPI from [Wind](https://www.wind.com.cn/). The raw data is stored in MACRO_DATA.csv also in [AllRawData](https://github.com/YanrongWu/YanrongWu-PHBS_MLF_2019/tree/master/Final Group Project/Data/AllRawData) folder. 
 
 ### 2.2 Data Description and Data Selection
 
 #### 2.2.1 Imbalance Problem of Y Data
 
--  Discrete value to illustrate recession
+- Discrete value to illustrate recession
 
   According to [NBER's Business Cycle Dating Committee](http://www.nber.org/cycles/recessions.html), important recessions of US is illustrated in the table below:
 
   ![US_Business_Cycle](https://github.com/YanrongWu/YanrongWu-PHBS_MLF_2019/blob/master/Final%20Group%20Project/Figures/US_Business_Cycle.png)
 
-  According to the table, we can define the period between the peak and through of an cycle as recession interval. For example, the ***December 1969*** is a peak of an cycle and ***November 1970*** is the through of the same cycle. As a result, we can define the ***December 1969 to November 1970*** as an recession.
+  According to the table, we can define the period between the peak and through of an cycle as recession interval. For example, the ***December 1969*** is a peak of an cycle and ***November 1970*** is the through of the same cycle. As a result, we can define the ***December 1969 to November 1970*** as an recession. Our process model of the fact is class all the date between an recession as 1 and 0 for others, which means that all ***y*** during the interval like ***December 1969 to November 1970*** is 1 and the others is 0. **But, there is a huge imbalance problem** if we use binary value to illustrate the degree of recession.
 
-  Our process model of the fact is class all the date between an recession as 1 and 0 for others, which means that all ***y*** during the interval like ***December 1969 to November 1970*** is 1 and the others is 0
+- Definition of Continuous Recession Index 
 
-- Other Definition Recession Index 
+  1. Applying "The Econbrowser Recession Indicator Index"
 
-  - Applying "The Econbrowser Recession Indicator Index"
+  According to GDP-Based Recession Indicator Index from FRED called [JHGDPBRINDX](https://fred.stlouisfed.org/series/JHGDPBRINDX), we can get a definition of recession from [Hamilton, James](http://econbrowser.com/recession-index)
 
-  - Generated by Macroeconomic data according to Unemployment Rate, etc
+  2. Generated by Macroeconomic data according to Unemployment Rate, etc
 
-    • ***Weekly return:*** DJIA (Dow Jones Industrial Average) weekly return at the date
+     We also try to generate a index by some macro-economic data, like some shown in Data/AllRawData/MACRO_DATA.csv.
 
-    • ***Return of past month:*** DJIA accumulated monthly return of the last month
+     • ***Weekly return:*** DJIA (Dow Jones Industrial Average) weekly return at the date
 
-    • ***Return of past half year:*** DJIA accumulated return of the last half year
+     • ***Return of past month:*** DJIA accumulated monthly return of the last month
 
-    • ***Return of past year:*** DJIA accumulated return of the last year
+     • ***Return of past half year:*** DJIA accumulated return of the last half year
 
-    • ***Volatility:*** Volatility of DJIA this week
+     • ***Return of past year:*** DJIA accumulated return of the last year
 
-    • ***Average weekly Volatility of past month:*** the average of weekly Volatility of DJIA last month
+     • ***Volatility:*** Volatility of DJIA this week
 
-    • ***Average weekly Volatility of past quarter:*** the average of weekly Volatility of DJIA last quarter
+     • ***Average weekly Volatility of past month:*** the average of weekly Volatility of DJIA last month
 
-    ***Tips:***
+     • ***Average weekly Volatility of past quarter:*** the average of weekly Volatility of DJIA last quarter
 
-    ***Consering the YTM is daily data but the date in the [DJ_weekly.csv](https://github.com/YanrongWu/YanrongWu-PHBS_MLF_2019/blob/master/Final%20Group%20Project/data/DJ_weekly.csv) and 
-    [Economic_data.csv](https://github.com/YanrongWu/YanrongWu-PHBS_MLF_2019/blob/master/Final%20Group%20Project/data/Economic_data.csv) are arranged in weekly or monthly data. As a result, for everyday, we chose to trace back to the first accessable date to fill in the blanks in the features.***
+     > ***Consering the YTM is daily data but the some macro-economic date in the are arranged in weekly or monthly data. As a result, for everyday, we chose to trace back to the first accessible date to fill in the blanks in the features.***
 
-- In the End, We decided take "The Econbrowser Recession Indicator Index" as the recession index in our project. Because ... ...
+     ![MACROECONOMIC_DATA_vs_RECESSION](README.assets/MACROECONOMIC_DATA_vs_RECESSION.png)
+
+
+In the End, We decided take "JHGDPBRINDX" as the recession index in our project. Because we haven't found a reasonable way by our team to generate recession index by macro-economic data. The trend of macro-dataset and that of recession is not always related as the above figure shown, the red line is the value of [JHGDPBRINDX](https://fred.stlouisfed.org/series/JHGDPBRINDX) . Then, we generate multiple classes from the continues index of recession as the final Y side data joining the model. Take the JHGDPBRINDX index value below 20 as class 0, above 80 as class 4, there are totally 5 classes, 0,1,2,3, and 4.
 
 #### 2.2.2 Treasury Yield and Recession
 
-In our following process, we will use data from 1962.  
+When we check the correlation between Treasury Yield and Recession, we found a reasonable relation between them, as shown in the following figures. The following figures are interest spread with recessions highlighted. 
 
 ![](https://github.com/YanrongWu/YanrongWu-PHBS_MLF_2019/blob/master/Final%20Group%20Project/Figures/1960s%20onwards%20yield.png)  
 
 ![](https://github.com/YanrongWu/YanrongWu-PHBS_MLF_2019/blob/master/Final%20Group%20Project/Figures/1960s%20onwards%20recession.png)   
 
-The following figures are interest spread with recessions highlighted.  
-![10-1/-3](https://github.com/YanrongWu/YanrongWu-PHBS_MLF_2019/blob/master/Final%20Group%20Project/Figures/10%20year%20yield%20minus.png)  
+![10-1/-3](https://github.com/YanrongWu/YanrongWu-PHBS_MLF_2019/blob/master/Final%20Group%20Project/Figures/10%20year%20yield%20minus.png) 
+
 ![10-5](https://github.com/YanrongWu/YanrongWu-PHBS_MLF_2019/blob/master/Final%20Group%20Project/Figures/10%20year%20yield%20minus%205.png)  
+
 ![5-](https://github.com/YanrongWu/YanrongWu-PHBS_MLF_2019/blob/master/Final%20Group%20Project/Figures/5%20year%20yield%20minus.png)  
+
+In general, the relation between them worth more effects to exploring further in the project, Here is a figure shown the overview trend among the variables. RECESSION_LABEL in the figure is the index [JHDUSRGDPBR](https://github.com/YanrongWu/YanrongWu-PHBS_MLF_2019/blob/master/Final Group Project/Data/AllRawData/Part 1 Recession Index/JHDUSRGDPBR.csv).
+
+![TREASURY_vs_RECESSION](README.assets/TREASURY_vs_RECESSION.png)
 
 #### 2.2.3 Corporate Bond and Recession
 
+In the other hand, we also collect many kinds of yield from bond market, specially from corporate bond market, but we did not get the insight from the general trend of the yield of these bonds. The figure shows the trend of corporate bond yield and recession.
+
+![HQMCB_vs_RECESSION](README.assets/HQMCB_vs_RECESSION.png)
+
+The inverse yield of corporate bond is not very predictable for the coming recession, for example, before the 2008 recession, there is not existing inverse yield rate in the data of HQMCB10M1, which means *10-Year High Quality Market (HQM) Corporate Bond Spot Rate* **(HQMCB10YR)** minus *1-Year High Quality Market (HQM) Corporate Bond Spot Rate* **(HQMCB1YR)**, and also the same for other two differences of bond yields.
+
 #### 2.2.4 The Rate of Change upon Short-Term Yield and Recession
 
-according to the the article, ... ...
+We also consider to add the feature of rate of change upon short-term yields to the X side of the model, However, according to the the article, [Information in the Yield Curve about Future Recessions]((https://www.frbsf.org/economic-research/publications/economic-letter/2018/august/information-in-yield-curve-about-future-recessions/)) (FRBSF Economic Letter No. 2018–20). Federal Reserve Bank of San Francisco. Yield curve inversions could cause future recessions because short-term rates are elevated and tight monetary policy is slowing down the economy. meanwhile, investors’ expectations of a future economic downturn could cause strong demand for safe, long-term Treasury bonds, pushing down long-term rates and thus causing an inversion of the yield curve. Historically, the causation may well have gone both ways. Thus, We will not to assess the effect generated by the changes upon short-term yield onto the predict model.
 
 #### 2.2.5 Only Take Treasury Yields as Components for X Side
 
-The table below illustrates the summary of the potential features we get**
+Finally, we decide to only use the Treasury Yields as the components in the X side in the model. We will try different combinations and lag among the yields to find some relation into the index of recession, i.e. the multiple-classes generated by [JHGDPBRINDX](https://fred.stlouisfed.org/series/JHGDPBRINDX)
 
-![Features](https://github.com/YanrongWu/YanrongWu-PHBS_MLF_2019/blob/master/Final%20Group%20Project/Figures/data.png)
-
-•	***DGS1:*** The YTM of the one-year US treasury 
-
-•	***DGS3:*** The YTM of the 3-year US treasury 
-
-•	***DGS5:*** The YTM of the 5-year US treasury 
+Here is the final [source dataset](https://github.com/YanrongWu/YanrongWu-PHBS_MLF_2019/blob/master/Final Group Project/Code/DATASET_FOR_CASES/DATASET.csv) collected and decided to applied in the model. We take the 1-year, 3-year, 5year, and 10-year treasury yield as the typical yield for short-term and long-term and apply them in the project. ***10M1*** means the difference of YTM of 10-year US treasury and 1-year US treasury. ***10M3***, ***5M1*** have the same meaning.
 
 ## 3  Feature Engineering - Feature Extraction and Generalized
+
 ### 3.1 Combination of Different Treasury Yields with Different Weights
 
-***10M1*** means the difference of YTM of 10-year US treasury and 1-year US treasury. ***10M3***, ***10M5***, ***5M3***, ***5M1*** have the same meaning.
+We consider that the weight of different yields will have effects on the result, then we try 3 kind of combination of weight. They are *One-time Long-Term minus One-time Short-Term, One-time Long-Term minus Two-time Short-Term, and Two-time Long-Term minus One-time Short-Term.*
 
 ### 3.2 Tuning Lag between Term Spread  Curve and Recession Index
 
-Considering that our target is to predict the likelihood of the recession occur. It's meaningless to use the synchronized features and classification. ***The classification result in the table below in fact is delayed for six months, which means that the y of 2000/1/1 is the division of 2000/7/1 which is six month later.***
+Considering that our target is to predict the likelihood of the recession occur. It's meaningless to use the synchronized features and classification. We tuning the lag as 1 quarter, 3 quarter, and 5 quarter. When we add the lag into the model the relationship between lag-based recession index and some term spread term shown like the figure below. The negative curve in the figure is minus-[JHGDPBRINDX](https://fred.stlouisfed.org/series/JHGDPBRINDX) with different lag options.
+
+![LAG_1Q_3Q_5Q](README.assets/LAG_1Q_3Q_5Q.png)
 
 ### 3.3 Feature Extraction through PCA
+
+We plan the try some extraction technology upon the features if there is worthy value shown in the following experiments which only takes some term spread as the only variable on X side.
 
 
 ## 4. Experiment on ML models
@@ -122,40 +134,72 @@ Considering that our target is to predict the likelihood of the recession occur.
 
 #### 4.1.1 Single Term Spread
 
-> At the first stage of our model, we want to just use the features of interest spread to predict the recession. We take the ***10M1*** and ***10M3*** as the features and the result of classification as the ***y***. ***We totally have about 170000 daily data***
->
-> We tried three models(LR,SVM and Tree), by dividing the dataset into training and validation set, we can get the accuracy for both of them. At the same time, we also use confusion matrix to assess model performance. By changing the numbers of data in the training set, we can find the best division of the dataset for each model.
+We use the features of interest spread to predict the recession. We take the ***10M1***, ***10M3***, and ***5M1*** as the feature in each case,respectively, and the multi-classification of recession as the ***y***. ***We totally have about 12700 daily data*** to fit in the model.
+
+We tried three models(LR,SVM and Tree), by dividing the dataset into training and validation set, we can get the accuracy for both of them. We focus on the learning curve as the most important figure to examine the model, in each case we have different option upon.
 
 - which pair of yields
-- what weight for each yield
+- what weight for each yield rate
 - how long is the lag
 - which ML model to apply
 
+In total, we launch ***81*** times experiments based ***27*** kinds of combination of the key variable by 3 ML method.
+
 #### 4.1.2 Multiple Term Spread
 
-- additionally, apply feature extraction technology
+- Additionally, we consider to apply feature extraction technology to get more information, but as you will see following, the result of the following experiments give other question to deal with before we "mix" the feature further.
 
 ### 4.2 Experiment Cases
 
-> - Traditional Model：LR
->
-> ![learning curve figure lr](https://github.com/YanrongWu/YanrongWu-PHBS_MLF_2019/blob/master/Final%20Group%20Project/Figures/LR.png)
->
-> For LR model, we can see the validation accuracy is stable as around ***86%*** as the changing of the scale of traning set, which means that if we wants to improve the performance further, maybe more features is necessary.
->
-> - Traditional Model：SVC
->
-> ![learning curve figure svc](https://github.com/YanrongWu/YanrongWu-PHBS_MLF_2019/blob/master/Final%20Group%20Project/Figures/SVM.png)
->
-> For SVC model, we can see the validation accuracy is indeed improving as we distribute more data for traning ***(propotion from 0.1 to 0.3)***, but stable after 0.3. The optimal accuracy is around ***83%*** which is worse than LR.
->
-> - Traditional Model：Desicion Tree
->
-> ![learning curve figure tree](https://github.com/YanrongWu/YanrongWu-PHBS_MLF_2019/blob/master/Final%20Group%20Project/Figures/Tree.png)  
->
->
-> For Desicion Tree model, we can see the validation accuracy is improving as the proportion of traning set ***changing from 0.1 to 0.2)***, but stable after 0.2. The optimal accuracy is around ***86%*** which is similar to LR.
->
+Here are the 27 situation in our experiment, L_TERM is the option for which long-term yield to be chosen, L_WEIGHT is the relative weight for long-term yield, and LAG is the quarter-counting option to adjust the recession index on timeline. We apply three ML method on them, then generate totally ***81 learning curving figures*** as the main evidence to make further analysis.
+
+| CASE       | L_TERM | S_TERM | L_WEIGHT | S_WEIGHT | LAG/Qua |
+| ---------- | ------ | ------ | -------- | -------- | ------- |
+| DATASET_01 | 10     | 1      | 1        | 1        | 1       |
+| DATASET_02 | 10     | 1      | 1        | 1        | 3       |
+| DATASET_03 | 10     | 1      | 1        | 1        | 5       |
+| DATASET_04 | 10     | 3      | 1        | 1        | 1       |
+| DATASET_05 | 10     | 3      | 1        | 1        | 3       |
+| DATASET_06 | 10     | 3      | 1        | 1        | 5       |
+| DATASET_07 | 5      | 1      | 1        | 1        | 1       |
+| DATASET_08 | 5      | 1      | 1        | 1        | 3       |
+| DATASET_09 | 5      | 1      | 1        | 1        | 5       |
+| DATASET_10 | 10     | 1      | 1        | 2        | 1       |
+| DATASET_11 | 10     | 1      | 1        | 2        | 3       |
+| DATASET_12 | 10     | 1      | 1        | 2        | 5       |
+| DATASET_13 | 10     | 3      | 1        | 2        | 1       |
+| DATASET_14 | 10     | 3      | 1        | 2        | 3       |
+| DATASET_15 | 10     | 3      | 1        | 2        | 5       |
+| DATASET_16 | 5      | 1      | 1        | 2        | 1       |
+| DATASET_17 | 5      | 1      | 1        | 2        | 3       |
+| DATASET_18 | 5      | 1      | 1        | 2        | 5       |
+| DATASET_19 | 10     | 1      | 2        | 1        | 1       |
+| DATASET_20 | 10     | 1      | 2        | 1        | 3       |
+| DATASET_21 | 10     | 1      | 2        | 1        | 5       |
+| DATASET_22 | 10     | 3      | 2        | 1        | 1       |
+| DATASET_23 | 10     | 3      | 2        | 1        | 3       |
+| DATASET_24 | 10     | 3      | 2        | 1        | 5       |
+| DATASET_25 | 5      | 1      | 2        | 1        | 1       |
+| DATASET_26 | 5      | 1      | 2        | 1        | 3       |
+| DATASET_27 | 5      | 1      | 2        | 1        | 5       |
+
+Here are the learning curve figures, in order of LR, SVM, and TREE model.
+
+![LR](README.assets/LR.png)
+
+
+
+![SVM](README.assets/SVM-1587911897423.png)
+
+
+
+![DT](README.assets/DT.png)
+
+
+
+> Here is the experiment log with more detail about the model generated by experiements. [LINK](https://github.com/YanrongWu/YanrongWu-PHBS_MLF_2019/blob/master/Final Group Project/Code/Experiment_Log_20200426.md)
+
+
 
 ## 5  Experiment Assessment and Results
 
@@ -183,6 +227,7 @@ Considering that our target is to predict the likelihood of the recession occur.
 
 
 ## Reference  
+
 [1] fred.stlouisfed.org: https://fred.stlouisfed.org/  
 [2] U.S. DEPARTMENT OF THE TREASURY: https://www.treasury.gov/resource-center/data-chart-center/interest-rates/Pages/TextView.aspx?data=yieldAll  
 [3] The National Bureau of Economic Research: https://www.nber.org/cycles.html    
@@ -191,6 +236,7 @@ Considering that our target is to predict the likelihood of the recession occur.
 [6] Ang, A., Piazzesi, M. and Wei, M. (2003). What Does the Yield Curve Tell Us about GDP Growth?. SSRN Electronic Journal.    
 
 ## Appendix 
+
 > The following figures show the different yield curve after 1990.  
 >
 > ![Different yield](https://github.com/YanrongWu/YanrongWu-PHBS_MLF_2019/blob/master/Final%20Group%20Project/Figures/different%20yield.png)  
@@ -198,5 +244,4 @@ Considering that our target is to predict the likelihood of the recession occur.
 > A technical recession is defined as two consecutive quarters of negative growth(GDP), as such we can obtain the dates that fit this description from the St Louis Federal Research Economic Database. This time series takes binary form, with 1 denoting a recession period and 0 other wise.
 >
 > ![recession](https://github.com/YanrongWu/YanrongWu-PHBS_MLF_2019/blob/master/Final%20Group%20Project/Figures/recession.png)  
->
 
